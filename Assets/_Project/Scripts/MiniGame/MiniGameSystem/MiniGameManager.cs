@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using GameStateSystem;
 using UnityEngine;
 
 public class MiniGameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Serializable]
+    public class MiniGame
     {
-        
+        public GameObject miniGame;
+        public GameState gameState;
     }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private MiniGame[] miniGames;
+
+    private void Awake()
     {
-        
+        GameStateController.OnCurrentGameStateChanged += HandleGameStateChange;
+    }
+
+    private void OnDestroy()
+    {
+        GameStateController.OnCurrentGameStateChanged -= HandleGameStateChange;
+    }
+
+    private void HandleGameStateChange(GameState state)
+    {
+        foreach (var miniGame in miniGames)
+        {
+            miniGame.miniGame.SetActive(miniGame.gameState == state);
+        }
     }
 }

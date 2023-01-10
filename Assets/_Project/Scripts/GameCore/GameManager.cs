@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using GameStateSystem;
 using UnityEngine;
 
@@ -41,12 +39,14 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         _timer = new Timer(timerDuration);
-        _gameStateController = new GameStateController(initialGameState);
-        _inputController = new InputController();
-
         _timer.OnTimerFinish += HandleTimerFinish;
-        
+        _inputController = new InputController();
         SetTargetFrameRate();
+    }
+
+    private void Start()
+    {
+        _gameStateController = new GameStateController(initialGameState);
     }
 
     private void OnDestroy()
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         _gameStateController.currentGameState =
             (GameState) (((int) _gameStateController.currentGameState + 1) % Enum.GetNames(typeof(GameState)).Length);
+        _timer.ResetTimer();
     }
 
     public Vector2 GetDrag() => _inputController.GetDrag();
@@ -74,6 +75,4 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
     }
-
-
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputController
@@ -11,11 +9,18 @@ public class InputController
 
     public InputController()
     {
-        _previousMousePosition = Input.mousePosition;
         _drag = new Vector2();
     }
 
     public void Update(float updatePeriod)
+    {
+        if (Input.GetMouseButtonDown(0))
+            _previousMousePosition = Input.mousePosition;
+
+        CalculateDrag(updatePeriod);
+    }
+
+    private void CalculateDrag(float updatePeriod)
     {
         _drag.x = Input.mousePosition.x - _previousMousePosition.x;
         _drag.y = Input.mousePosition.y - _previousMousePosition.y;

@@ -1,14 +1,16 @@
-using System;
 using UnityEngine;
 
 public abstract class Bouncer : MonoBehaviour
 {
-    [SerializeField] protected float horizontalMultiplier;
+    [Header("------ Bouncer -------")] [SerializeField]
+    protected float horizontalMultiplier;
+
     [SerializeField] protected float verticalMultiplier;
     [SerializeField] private Vector2 verticalClamp;
     [SerializeField] private Vector2 horizontalClamp;
 
 
+    private Transform _transform;
     private Vector3 _startPosition;
     protected Shaker Shaker;
     protected Rigidbody Rigidbody;
@@ -18,8 +20,9 @@ public abstract class Bouncer : MonoBehaviour
     protected abstract Vector3 direction { get; }
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
+        _transform = transform;
         Shaker = FindObjectOfType<Shaker>();
         Rigidbody = GetComponent<Rigidbody>();
     }
@@ -37,7 +40,7 @@ public abstract class Bouncer : MonoBehaviour
 
     private void Initialize()
     {
-        _startPosition = transform.position;
+        _startPosition = _transform.position;
     }
 
     protected virtual void Bounce()
@@ -46,13 +49,14 @@ public abstract class Bouncer : MonoBehaviour
         force.x *= horizontalMultiplier * direction.x;
         force.y *= verticalMultiplier * direction.y;
         force.y = Mathf.Clamp(force.y, verticalClamp.x, verticalClamp.y);
-        force.x = Mathf.Clamp(force.x, horizontalClamp.x, horizontalClamp.y);
+        force.x = Mathf.Clamp(force.x + Rigidbody.velocity.x, horizontalClamp.x, horizontalClamp.y);
         Rigidbody.velocity = force;
     }
 
     private void ReturnToStartPosition()
     {
-        transform.position = _startPosition;
+        _transform.position = _startPosition;
+        _transform.rotation = Quaternion.identity;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -186,10 +186,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d574464b1fe8e47ba134b27296aa35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalMultiplier: 0.5
+  horizontalMultiplier: 2
   verticalMultiplier: 0.1
-  verticalClamp: {x: -1.5, y: -4}
-  horizontalClamp: {x: -3, y: 3}
+  verticalClamp: {x: -1.5, y: -5}
+  horizontalClamp: {x: -3.5, y: 3.5}
 --- !u!135 &19245678
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &213598685
 Transform:
   m_ObjectHideFlags: 0
@@ -396,7 +396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213598684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 4.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1007,6 +1007,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18bfe98d6552d045bd8002e6745d85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniGames:
+  - miniGame: {fileID: 19245673}
+    gameState: 0
+  - miniGame: {fileID: 213598684}
+    gameState: 1
 --- !u!1 &913015956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerDuration: 90
-  initialGameState: 0
+  initialGameState: 1
 --- !u!4 &1196998583
 Transform:
   m_ObjectHideFlags: 0

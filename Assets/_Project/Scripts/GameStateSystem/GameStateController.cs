@@ -42,7 +42,8 @@ namespace GameStateSystem
 
         public GameStateController(GameState initialState)
         {
-            currentGameState = initialState;
+            _currentGameState = initialState;
+            OnCurrentGameStateChanged(initialState);
         }
 
         #endregion
