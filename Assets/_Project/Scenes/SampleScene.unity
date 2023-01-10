@@ -133,8 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 19245674}
   - component: {fileID: 19245675}
-  - component: {fileID: 19245676}
   - component: {fileID: 19245677}
+  - component: {fileID: 19245678}
   m_Layer: 7
   m_Name: Ball
   m_TagString: Untagged
@@ -150,7 +150,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19245673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -168,25 +168,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 9
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 56
   m_CollisionDetection: 1
---- !u!135 &19245676
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19245673}
-  m_Material: {fileID: 13400000, guid: 96f0fdb955564ab4abcffd6e5419a994, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &19245677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,10 +186,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d574464b1fe8e47ba134b27296aa35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalMultiplier: 1
-  verticalMultiplier: 1
-  verticalClamp: {x: 0, y: 0}
-  horizontalClamp: {x: 0, y: 0}
+  horizontalMultiplier: 0.5
+  verticalMultiplier: 0.1
+  verticalClamp: {x: -1.5, y: -4}
+  horizontalClamp: {x: -3, y: 3}
+--- !u!135 &19245678
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19245673}
+  m_Material: {fileID: 13400000, guid: e36390e02bf69544680253b06b17ee4e, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &182731970
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &213598685
 Transform:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 56
+  m_Constraints: 120
   m_CollisionDetection: 1
 --- !u!65 &213598687
 BoxCollider:
@@ -448,9 +448,10 @@ MonoBehaviour:
   horizontalMultiplier: 1
   verticalMultiplier: 1
   verticalClamp: {x: 0, y: 5}
-  horizontalClamp: {x: -3, y: 3}
-  torqueLimit: 2
-  torqueMultiplier: 0.1
+  horizontalClamp: {x: -5, y: 5}
+  torqueMultiplier: 10
+  maxPeriod: 1
+  minVerticalVelocityToRotate: 4
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,7 +1390,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.9053485, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1424127695
 MeshRenderer:
@@ -1653,5 +1654,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalClamp: {x: -0.25, y: 0.25}
   horizontalClamp: {x: -0.25, y: 0.25}
-  sensitivity: 0.2
+  sensitivity: 0.1
   returnSpeed: 1
