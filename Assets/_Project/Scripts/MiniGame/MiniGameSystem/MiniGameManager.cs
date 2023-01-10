@@ -2,32 +2,35 @@ using System;
 using GameStateSystem;
 using UnityEngine;
 
-public class MiniGameManager : MonoBehaviour
+namespace MiniGameSystem
 {
-    [Serializable]
-    public class MiniGame
+    public class MiniGameManager : MonoBehaviour
     {
-        public GameObject miniGame;
-        public GameState gameState;
-    }
-
-    [SerializeField] private MiniGame[] miniGames;
-
-    private void Awake()
-    {
-        GameStateController.OnCurrentGameStateChanged += HandleGameStateChange;
-    }
-
-    private void OnDestroy()
-    {
-        GameStateController.OnCurrentGameStateChanged -= HandleGameStateChange;
-    }
-
-    private void HandleGameStateChange(GameState state)
-    {
-        foreach (var miniGame in miniGames)
+        [Serializable]
+        public class MiniGame
         {
-            miniGame.miniGame.SetActive(miniGame.gameState == state);
+            public GameObject miniGame;
+            public GameState gameState;
+        }
+
+        [SerializeField] private MiniGame[] miniGames;
+
+        private void Awake()
+        {
+            GameStateController.OnCurrentGameStateChanged += HandleGameStateChange;
+        }
+
+        private void OnDestroy()
+        {
+            GameStateController.OnCurrentGameStateChanged -= HandleGameStateChange;
+        }
+
+        private void HandleGameStateChange(GameState state)
+        {
+            foreach (var miniGame in miniGames)
+            {
+                miniGame.miniGame.SetActive(miniGame.gameState == state);
+            }
         }
     }
 }

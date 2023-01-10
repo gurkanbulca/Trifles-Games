@@ -1,67 +1,71 @@
+using ShakerSystem;
 using UnityEngine;
 
-public abstract class Bouncer : MonoBehaviour
+namespace MiniGame
 {
-    [Header("------ Bouncer -------")] [SerializeField]
-    protected float horizontalMultiplier;
-
-    [SerializeField] protected float verticalMultiplier;
-    [SerializeField] private Vector2 verticalClamp;
-    [SerializeField] private Vector2 horizontalClamp;
-
-
-    private Transform _transform;
-    private Vector3 _startPosition;
-    protected Shaker Shaker;
-    protected Rigidbody Rigidbody;
-
-    private const string ShakerTag = "Shaker";
-
-    protected abstract Vector3 direction { get; }
-
-
-    protected virtual void Awake()
+    public abstract class Bouncer : MonoBehaviour
     {
-        _transform = transform;
-        Shaker = FindObjectOfType<Shaker>();
-        Rigidbody = GetComponent<Rigidbody>();
-    }
+        [Header("------ Bouncer -------")] [SerializeField]
+        protected float horizontalMultiplier;
 
-    private void Start()
-    {
-        Initialize();
-    }
+        [SerializeField] protected float verticalMultiplier;
+        [SerializeField] private Vector2 verticalClamp;
+        [SerializeField] private Vector2 horizontalClamp;
 
 
-    private void OnDisable()
-    {
-        ReturnToStartPosition();
-    }
+        protected Transform Transform;
+        private Vector3 _startPosition;
+        protected Shaker Shaker;
+        protected Rigidbody Rigidbody;
 
-    private void Initialize()
-    {
-        _startPosition = _transform.position;
-    }
+        private const string ShakerTag = "Shaker";
 
-    protected virtual void Bounce()
-    {
-        var force = Shaker.velocity;
-        force.x *= horizontalMultiplier * direction.x;
-        force.y *= verticalMultiplier * direction.y;
-        force.y = Mathf.Clamp(force.y, verticalClamp.x, verticalClamp.y);
-        force.x = Mathf.Clamp(force.x + Rigidbody.velocity.x, horizontalClamp.x, horizontalClamp.y);
-        Rigidbody.velocity = force;
-    }
+        protected abstract Vector3 direction { get; }
 
-    private void ReturnToStartPosition()
-    {
-        _transform.position = _startPosition;
-        _transform.rotation = Quaternion.identity;
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag(ShakerTag))
-            Bounce();
+        protected virtual void Awake()
+        {
+            Transform = transform;
+            Shaker = FindObjectOfType<Shaker>();
+            Rigidbody = GetComponent<Rigidbody>();
+        }
+
+        private void Start()
+        {
+            Initialize();
+        }
+
+
+        private void OnDisable()
+        {
+            ReturnToStartPosition();
+        }
+
+        private void Initialize()
+        {
+            _startPosition = Transform.position;
+        }
+
+        protected virtual void Bounce()
+        {
+            var force = Shaker.velocity;
+            force.x *= horizontalMultiplier * direction.x;
+            force.y *= verticalMultiplier * direction.y;
+            force.y = Mathf.Clamp(force.y, verticalClamp.x, verticalClamp.y);
+            force.x = Mathf.Clamp(force.x + Rigidbody.velocity.x, horizontalClamp.x, horizontalClamp.y);
+            Rigidbody.velocity = force;
+        }
+
+        private void ReturnToStartPosition()
+        {
+            Transform.position = _startPosition;
+            Transform.rotation = Quaternion.identity;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag(ShakerTag))
+                Bounce();
+        }
     }
 }

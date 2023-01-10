@@ -1,0 +1,17 @@
+{
+    "name": "ShakerSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ee63751bbd328d34dbc922a1f83a2c2e",
+        "GUID:7d4b1327848bc124a83a19fa2c6db311"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
