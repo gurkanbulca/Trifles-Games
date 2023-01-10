@@ -2,7 +2,8 @@
     "name": "MiniGame",
     "rootNamespace": "",
     "references": [
-        "GUID:e09fa7e674dde434b982582cc1b2cdc0"
+        "GUID:e09fa7e674dde434b982582cc1b2cdc0",
+        "GUID:ee63751bbd328d34dbc922a1f83a2c2e"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

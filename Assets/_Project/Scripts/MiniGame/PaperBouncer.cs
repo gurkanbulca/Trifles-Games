@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -20,6 +22,7 @@ namespace MiniGame
         private float _angularVelocity;
         private float _period;
         private Tween _tween;
+        private float _stackTimer;
 
         #endregion
 
@@ -37,9 +40,33 @@ namespace MiniGame
             Transform = transform.GetChild(0);
         }
 
+        private void FixedUpdate()
+        {
+            if (Rigidbody.velocity.sqrMagnitude == 0)
+            {
+                _stackTimer += Time.fixedDeltaTime;
+                if (_stackTimer >= 1)
+                {
+                    _stackTimer = 0;
+                    StartCoroutine(FixStack());
+                }
+            }
+            else
+            {
+                _stackTimer = 0;
+            }
+        }
+
         #endregion
 
         #region Helper Methods
+
+        private IEnumerator FixStack()
+        {
+            Rigidbody.useGravity = false;
+            yield return new WaitForFixedUpdate();
+            Rigidbody.useGravity = true;
+        }
 
         /// <summary>
         /// Append angular velocity by Shaker's x parameter of velocity vector.

@@ -46,6 +46,8 @@ namespace GameCore
             _drag.x = Input.mousePosition.x - _previousMousePosition.x;
             _drag.y = Input.mousePosition.y - _previousMousePosition.y;
             _drag *= updatePeriod;
+            _drag.x = Mathf.Clamp(_drag.x, -1f, 1f);
+            _drag.y = Mathf.Clamp(_drag.y, -1f, 1f);
             _previousMousePosition = Input.mousePosition;
         }
 

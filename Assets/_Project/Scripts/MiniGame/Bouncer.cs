@@ -73,8 +73,8 @@ namespace MiniGame
         protected virtual void Bounce()
         {
             var force = Shaker.velocity;
-            force.x *= horizontalMultiplier * direction.x;
-            force.y *= verticalMultiplier * direction.y;
+            force.x *= horizontalMultiplier;
+            force.y *= verticalMultiplier;
             force.y = Mathf.Clamp(force.y, verticalClamp.x, verticalClamp.y);
             force.x = Mathf.Clamp(force.x + Rigidbody.velocity.x, horizontalClamp.x, horizontalClamp.y);
             Rigidbody.velocity = force;
@@ -86,7 +86,7 @@ namespace MiniGame
             Transform.rotation = Quaternion.identity;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected virtual void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag(ShakerTag))
                 Bounce();
