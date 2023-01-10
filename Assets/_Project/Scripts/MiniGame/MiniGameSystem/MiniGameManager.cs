@@ -6,6 +6,8 @@ namespace MiniGameSystem
 {
     public class MiniGameManager : MonoBehaviour
     {
+        #region Serializables
+
         [Serializable]
         public class MiniGame
         {
@@ -13,7 +15,15 @@ namespace MiniGameSystem
             public GameState gameState;
         }
 
+        #endregion
+
+        #region Serialized Fields
+
         [SerializeField] private MiniGame[] miniGames;
+
+        #endregion
+
+        #region Unity LifeCycle
 
         private void Awake()
         {
@@ -25,6 +35,15 @@ namespace MiniGameSystem
             GameStateController.OnCurrentGameStateChanged -= HandleGameStateChange;
         }
 
+        #endregion
+
+
+        #region Event Handlers
+
+        /// <summary>
+        /// Sets mini games status by current game state.
+        /// </summary>
+        /// <param name="state"></param>
         private void HandleGameStateChange(GameState state)
         {
             foreach (var miniGame in miniGames)
@@ -32,5 +51,7 @@ namespace MiniGameSystem
                 miniGame.miniGame.SetActive(miniGame.gameState == state);
             }
         }
+
+        #endregion
     }
 }

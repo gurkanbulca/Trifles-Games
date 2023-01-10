@@ -6,16 +6,30 @@ namespace ShakerSystem
 {
     public class Shaker : MonoBehaviour
     {
+        #region SerializedFields
+
         [SerializeField] private Vector2 verticalClamp;
         [SerializeField] private Vector2 horizontalClamp;
         [SerializeField] private float sensitivity;
         [SerializeField] private float returnSpeed;
 
+        #endregion
+
+        #region Private Fields
+
         private Vector3 _startPosition;
 
         private readonly Vector3 _zeroVector3 = Vector3.zero;
 
+        #endregion
+
+        #region Properties
+
         public Vector3 velocity { get; private set; }
+
+        #endregion
+
+        #region Unity LifeCycle
 
         private void Awake()
         {
@@ -32,6 +46,13 @@ namespace ShakerSystem
             }
         }
 
+        #endregion
+
+        #region Helper Methods
+
+        /// <summary>
+        /// When mouse button is not holding, lerp self position to start position by return speed.
+        /// </summary>
         private void ReturnToStartPosition()
         {
             var direction = (_startPosition - transform.position);
@@ -45,6 +66,9 @@ namespace ShakerSystem
             transform.Translate(velocity * Time.fixedDeltaTime);
         }
 
+        /// <summary>
+        /// Move itself through clamped coordinates my mouse drag.
+        /// </summary>
         private void Move()
         {
             var drag = GameManager.Instance.GetDrag() * sensitivity;
@@ -57,5 +81,7 @@ namespace ShakerSystem
             velocity = (targetPosition - position) / Time.fixedDeltaTime;
             transform.position = targetPosition;
         }
+
+        #endregion
     }
 }

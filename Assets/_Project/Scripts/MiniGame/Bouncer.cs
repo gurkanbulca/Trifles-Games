@@ -5,6 +5,8 @@ namespace MiniGame
 {
     public abstract class Bouncer : MonoBehaviour
     {
+        #region Serialized Fields
+
         [Header("------ Bouncer -------")] [SerializeField]
         protected float horizontalMultiplier;
 
@@ -12,16 +14,31 @@ namespace MiniGame
         [SerializeField] private Vector2 verticalClamp;
         [SerializeField] private Vector2 horizontalClamp;
 
+        #endregion
+
+        #region Protected Fields
 
         protected Transform Transform;
-        private Vector3 _startPosition;
         protected Shaker Shaker;
         protected Rigidbody Rigidbody;
 
+        #endregion
+
+        #region Private Fields
+
+        private Vector3 _startPosition;
+
         private const string ShakerTag = "Shaker";
+
+        #endregion
+
+        #region Properties
 
         protected abstract Vector3 direction { get; }
 
+        #endregion
+
+        #region Unity LifeCycle
 
         protected virtual void Awake()
         {
@@ -41,11 +58,18 @@ namespace MiniGame
             ReturnToStartPosition();
         }
 
+        #endregion
+
+        #region Helper Methods
+
         private void Initialize()
         {
             _startPosition = Transform.position;
         }
 
+        /// <summary>
+        /// Calculates bounce velocity by shaker velocity.
+        /// </summary>
         protected virtual void Bounce()
         {
             var force = Shaker.velocity;
@@ -67,5 +91,7 @@ namespace MiniGame
             if (collision.gameObject.CompareTag(ShakerTag))
                 Bounce();
         }
+
+        #endregion
     }
 }

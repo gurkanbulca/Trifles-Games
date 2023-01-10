@@ -5,7 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(TMP_Text))]
 public class TimerUI : MonoBehaviour
 {
+    #region Private Fields
+
     private TMP_Text _text;
+
+    #endregion
+
+    #region Unity LifeCycle
 
     private void Start()
     {
@@ -17,6 +23,10 @@ public class TimerUI : MonoBehaviour
     {
         SetText(GetTimer());
     }
+
+    #endregion
+
+    #region Helper Methods
 
     private float GetTimer()
     {
@@ -32,4 +42,6 @@ public class TimerUI : MonoBehaviour
     {
         return ((int) (timer / 60)).ToString("D2") + ":" + ((int) (timer % 60)).ToString("D2");
     }
+
+    #endregion
 }

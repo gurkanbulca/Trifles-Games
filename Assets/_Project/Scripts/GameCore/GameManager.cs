@@ -7,15 +7,9 @@ namespace GameCore
 {
     public class GameManager : MonoBehaviour
     {
+        #region Singleton
+
         private static GameManager _instance;
-
-        [SerializeField] private float timerDuration;
-        [SerializeField] private GameState initialGameState;
-
-
-        private Timer _timer;
-        private GameStateController _gameStateController;
-        private InputController _inputController;
 
         public static GameManager Instance
         {
@@ -31,6 +25,26 @@ namespace GameCore
                 return _instance;
             }
         }
+
+        #endregion
+
+        #region Serialized Fields
+
+        [SerializeField] private float timerDuration;
+        [SerializeField] private GameState initialGameState;
+
+        #endregion
+
+        #region Private Fields
+
+        private Timer _timer;
+        private GameStateController _gameStateController;
+        private InputController _inputController;
+
+        #endregion
+
+
+        #region Unity LifeCycle
 
         private void Awake()
         {
@@ -63,6 +77,14 @@ namespace GameCore
             _inputController.Update(Time.deltaTime);
         }
 
+        #endregion
+
+        #region Event Handlers
+
+        /// <summary>
+        /// Event handler for Timer's OnTimerFinish action.
+        /// Changes games state and reset timer.
+        /// </summary>
         private void HandleTimerFinish()
         {
             _gameStateController.currentGameState =
@@ -71,13 +93,24 @@ namespace GameCore
             _timer.ResetTimer();
         }
 
+        #endregion
+
+        #region Public Methods
+
         public Vector2 GetDrag() => _inputController.GetDrag();
 
         public float GetTimer() => _timer.timer;
+
+        #endregion
+
+
+        #region Helper Methods
 
         private void SetTargetFrameRate()
         {
             Application.targetFrameRate = 60;
         }
+
+        #endregion
     }
 }
