@@ -1,18 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class Timer : MonoBehaviour
+public class Timer
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action OnTimerFinish = delegate { };
+
+    private float _timerStart;
+
+    public float timer { get; private set; }
+
+    public Timer(float timer)
     {
-        
+        this.timer = timer;
+        _timerStart = timer;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DecreaseTimer(float second)
     {
-        
+        timer -= second;
+        CheckForTimerFinish();
+    }
+
+    public void ResetTimer() => timer = _timerStart;
+
+    private void CheckForTimerFinish()
+    {
+        if (timer <= 0)
+            OnTimerFinish();
     }
 }

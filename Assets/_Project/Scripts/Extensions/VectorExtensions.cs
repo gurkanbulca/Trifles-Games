@@ -15,5 +15,11 @@ namespace Extensions
             v.x = x;
             return v;
         }
+        
+        public static Vector3 WithZ(this Vector3 v, float z)
+        {
+            v.z = z;
+            return v;
+        }
     }
 }

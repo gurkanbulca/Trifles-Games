@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputController : MonoBehaviour
+public class InputController
 {
-    // Start is called before the first frame update
-    void Start()
+    private Vector3 _previousMousePosition;
+
+    private Vector2 _drag;
+    private readonly Vector2 _zeroDrag = new(0, 0);
+
+    public InputController()
     {
-        
+        _previousMousePosition = Input.mousePosition;
+        _drag = new Vector2();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update(float updatePeriod)
     {
-        
+        _drag.x = Input.mousePosition.x - _previousMousePosition.x;
+        _drag.y = Input.mousePosition.y - _previousMousePosition.y;
+        _drag *= updatePeriod;
+        _previousMousePosition = Input.mousePosition;
     }
+
+    public Vector2 GetDrag() => Input.GetMouseButton(0) ? _drag : _zeroDrag;
 }
